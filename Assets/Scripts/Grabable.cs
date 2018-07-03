@@ -3,9 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Grabable : MonoBehaviour, IRayCastable
 {
+    Scene activeScene;
+
     public int number;
     public Color highlightedColor;
     public Color selectedColor;
@@ -33,6 +36,7 @@ public class Grabable : MonoBehaviour, IRayCastable
     private void Start()
     {
         //myRenderer.material.color = idleColor;
+        activeScene = SceneManager.GetActiveScene();
     }
     
     private void Update()
@@ -53,22 +57,47 @@ public class Grabable : MonoBehaviour, IRayCastable
             outlineMaterial.SetFloat("_Outline", 0.03f);
             outlineMaterial.SetColor("_OutlineColor", highlightedColor);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (activeScene.name.Equals("Level1"))
         {
-            if (isSelected == false)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                //myRenderer.material.color = selectedColor;
-                outlineMaterial.SetColor("_OutlineColor", selectedColor);
-                myRigidBody.AddTorque(Vector3.up * rotationForce * 0.0001f, ForceMode.Force);
-                isSelected = true;
-                myRigidBody.useGravity = false;
+                if (isSelected == false)
+                {
+                    //myRenderer.material.color = selectedColor;
+                    outlineMaterial.SetColor("_OutlineColor", selectedColor);
+                    myRigidBody.AddTorque(Vector3.up * rotationForce * 0.0001f, ForceMode.Force);
+                    isSelected = true;
+                    myRigidBody.useGravity = false;
+                }
+                else
+                {
+                    //myRenderer.material.color = highlightedColor;
+                    outlineMaterial.SetColor("_OutlineColor", highlightedColor);
+                    isSelected = false;
+                    myRigidBody.useGravity = true;
+                }
             }
-            else
+        }
+        else if (activeScene.name.Equals("Level1_alternate"))
+        {
+            if (AlternateTrackableEventHandler.isVisible)
             {
-                //myRenderer.material.color = highlightedColor;
-                outlineMaterial.SetColor("_OutlineColor", highlightedColor);
-                isSelected = false;
-                myRigidBody.useGravity = true;
+                AlternateTrackableEventHandler.isVisible = false;
+                if (isSelected == false)
+                {
+                    //myRenderer.material.color = selectedColor;
+                    outlineMaterial.SetColor("_OutlineColor", selectedColor);
+                    myRigidBody.AddTorque(Vector3.up * rotationForce * 0.0001f, ForceMode.Force);
+                    isSelected = true;
+                    myRigidBody.useGravity = false;
+                }
+                else
+                {
+                    //myRenderer.material.color = highlightedColor;
+                    outlineMaterial.SetColor("_OutlineColor", highlightedColor);
+                    isSelected = false;
+                    myRigidBody.useGravity = true;
+                }
             }
         }
     }
