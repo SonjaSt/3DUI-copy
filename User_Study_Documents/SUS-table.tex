@@ -1,0 +1,44 @@
+\documentclass[12pt,twoside,a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{array}
+
+\newcounter{rowcntr}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{N}[1]{>{\stepcounter{rowcntr}\therowcntr.}R{#1}}
+
+
+
+
+\newcommand{\scaletable}{%
+  \begin{tabular}[t]{|*{5}{c|}}%
+    \hline
+    1 & 2 & 3 & 4 & 5 \tabularnewline
+    \hline
+  \end{tabular}
+}
+
+\pagestyle{plain}
+
+\begin{document}
+\begin{table}[]
+\centering
+\label{my-label}
+{\Large{System Usability Scale table for the project "Friendly way of teaching math"}}
+\begin{tabular}{N{1cm}L{0.6\textwidth}C{0.3\textwidth}}
+\multicolumn{1}{l}{}  & &     \footnotesize \bfseries\parbox{0.14\textwidth}{Strongly\\ disagree}\parbox{0.14\textwidth}{\raggedleft Strongly agree} \tabularnewline
+&I think that I would like to use this system frequently                                   & \scaletable \tabularnewline
+&I found the system unnecessarily complex                                                  & \scaletable \tabularnewline
+&I thought the system was easy to use                                                      & \scaletable \tabularnewline
+&I think that I would need the support of a technical person to be able to use this system & \scaletable \tabularnewline
+&I found the various functions in this system were well integrated                         & \scaletable \tabularnewline
+&I thought there was too much inconsistency in this system                                 & \scaletable \tabularnewline
+&I would imagine that most people would learn to use this system very quickly              & \scaletable \tabularnewline
+&I found the system very cumbersome to use                                                 & \scaletable \tabularnewline
+&I felt very confident using the system                                                    & \scaletable \tabularnewline
+&I needed to learn a lot of things before I could get going with this system               & \scaletable \tabularnewline
+\end{tabular}
+\end{table}
+\end{document}
